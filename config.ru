@@ -7,7 +7,7 @@ configure do
   set :jenkins_username, ''
   set :jenkins_password, ''
   
-  set :github_repository_url, ''
+  set :github_repository_url, ''  #Just enter "user/repository" here, e.g. "martin-naumann/project-cockpit" 
   set :jenkins_job_name, ''
 
   helpers do
