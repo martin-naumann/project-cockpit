@@ -4,7 +4,6 @@ require 'pp'
 
 def getScorePercentForJob
   num_successes = 0
-  puts settings.jenkins_username
   job_details = JSON.parse(RestClient.get("http://" + settings.jenkins_username + ":" + settings.jenkins_password + "@code.cloudnode.ch:8080/job/" + settings.jenkins_job_name + "/api/json"))
   job_details["builds"].each do |build|
     build_details = JSON.parse(RestClient.get("http://" + settings.jenkins_username + ":" + settings.jenkins_password + "@code.cloudnode.ch:8080/job/" + settings.jenkins_job_name + "/" + build["number"].to_s + "/api/json"))
@@ -21,7 +20,7 @@ def refresh_success_rate
 end
 
 def refresh_pullrequest
-  resource = RestClient::Resource.new settings.github_repository_url + "/pulls", settings.github_username, settings.github_password
+  resource = RestClient::Resource.new "https://api.github.com/repos/" + settings.github_repository_url + "/pulls", settings.github_username, settings.github_password
   pull_request = JSON.parse(resource.get)
   if !pull_request.nil? and !pull_request[0].nil?
   	send_event('pullrequest', { text: 
