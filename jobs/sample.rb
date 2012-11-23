@@ -17,7 +17,7 @@ def getScorePercentForJob
 end
 
 def refresh_success_rate
-  send_event('synergy',   { value: getScorePercentForJob(job) })
+  send_event('synergy',   { value: getScorePercentForJob })
 end
 
 def refresh_pullrequest
@@ -44,7 +44,7 @@ def refresh_build_state
   end
 end
 
-SCHEDULER.every '6m' do
+SCHEDULER.every '3s' do
 	refresh_success_rate
 	refresh_pullrequest
 	refresh_build_state
